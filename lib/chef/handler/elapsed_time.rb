@@ -20,12 +20,12 @@ class Chef
 
       def report
         @max_time = all_resources.max_by{ |r| r.elapsed_time }.elapsed_time
-        Chef::Log.info "%-#{@config[:max_width]}s %-#{@config[:max_name]}s"%["Elapsed Time", "Resource"]
-        Chef::Log.info "%-#{@config[:max_width]}s %-#{@config[:max_name]}s"%["============", "========"]
+        Chef::Log.info "%-#{@config[:max_width]}s %6s %-#{@config[:max_name]}s"%["Elapsed Time", '', "Resource"]
+        Chef::Log.info "%-#{@config[:max_width]}s %6s %-#{@config[:max_name]}s"%["============", '', "========"]
         all_resources.sort_by{ |r| r.elapsed_time }.each do |r|
           char = if r.updated then "+" else "-" end
           bar = char * ( @config[:max_width] * (r.elapsed_time/@max_time)).ceil
-          Chef::Log.info "%.3fs %s %-#{@config[:max_name]}s"%[r.elapsed_time, bar, full_name(r)]
+          Chef::Log.info "%05.2fs %-#{@config[:max_width]}s %-#{@config[:max_name]}s"%[r.elapsed_time, bar, full_name(r)]
         end
         Chef::Log.info ""
         Chef::Log.info "Scale : %.3fs per unit width"%[unit_width]
