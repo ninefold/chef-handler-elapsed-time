@@ -64,6 +64,10 @@ module Ninefold
       def max_resource
         @max_resource ||= all_resources.max_by{ |r| full_name(r).length}
       end
+
+      def full_name(resource)
+        "#{resource.resource_name}[#{resource.name}]"
+      end
     end
   end
 end
