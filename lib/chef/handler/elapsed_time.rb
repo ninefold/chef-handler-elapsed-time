@@ -31,7 +31,7 @@ module Ninefold
         all_resources.sort_by{ |r| r.elapsed_time }.each do |r|
           char = if r.updated then "+" else "-" end
           bar = char * ( max_width * (r.elapsed_time/max_time)).ceil
-          Chef::Log.info "%05.2fs %-#{max_width}s %-#{max_resource_length}s"%[r.elasped_time, bar, full_name(r)]
+          Chef::Log.info "%05.2fs %-#{max_width}s %-#{max_resource_length}s"%[r.elapsed_time, bar, full_name(r)]
         end
         Chef::Log.info ""
         Chef::Log.info "Scale : %.3fs per unit width"%[unit_width]
