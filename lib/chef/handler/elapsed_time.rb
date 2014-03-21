@@ -23,7 +23,7 @@ module Ninefold
       def initialize(config={})
         @max_width = config[:max_width] || 30
         @max_length  = config[:max_length] || 120 - @max_width
-        @min_time = config[:min_time] || 0.01
+        @min_time = config[:min_time] || 0.5
       end
 
       def report

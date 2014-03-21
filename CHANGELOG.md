@@ -1,3 +1,9 @@
+## 0.3.0 (Mar 21, 2014)
+
+* Namespace to Ninefold::Handler
+* Add min\_time param to eliminate quick resources
+* Proper methodising of all calculated values
+
 ## 0.1.2 (Oct 26, 2012)
 
 Features:
