@@ -18,17 +18,19 @@ module Ninefold
   module Handler
     class ElapsedTime < ::Chef::Handler
 
-      attr_accessor :max_width, :max_length
+      attr_accessor :max_width, :max_length, :min_time
 
       def initialize(config={})
         @max_width = config[:max_width] || 30
         @max_length  = config[:max_length] || 120 - @max_width
+        @min_time = config[:min_time] || 0.01
       end
 
       def report
         Chef::Log.info "%-#{max_width}s %6s %-#{max_resource_length}s"%["Elapsed Time", '', "Resource"]
         Chef::Log.info "%-#{max_width}s %6s %-#{max_resource_length}s"%["============", '', "========"]
         all_resources.sort_by{ |r| r.elapsed_time }.each do |r|
+          next if r.elapsed_time <= min_time
           char = if r.updated then "+" else "-" end
           bar = char * ( max_width * (r.elapsed_time/max_time)).ceil
           Chef::Log.info "%05.2fs %-#{max_width}s %-#{max_resource_length}s"%[r.elapsed_time, bar, full_name(r)]
@@ -37,6 +39,7 @@ module Ninefold
         Chef::Log.info "Scale : %.3fs per unit width"%[unit_width]
         Chef::Log.info " * '+' denotes a resource which updated this run"
         Chef::Log.info " * '-' denotes a resource which did not update this run"
+        Chef::Log.info "Note : excludes resources taking less than #{min_time} secs"
       end
 
       private
