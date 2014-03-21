@@ -42,23 +42,15 @@ module Ninefold
       private
 
       def unit_width
-        max_time/max_width
-      end
-
-      def full_name(resource)
-        "#{resource.resource_name}[#{resource.name}]"
+        @unit_width ||= max_time/max_width
       end
 
       def max_resource_length
         @max_resource_length ||= [ full_name(max_resource).length, max_length ].min
       end
 
-      def full_name(resource)
-        "#{resource.resource_name}[#{resource.name}]"
-      end
-
-      def max_resource_time
-        @max_resource_time ||= max_resource.elapsed_time
+      def max_time
+        @max_time ||= max_resource.elapsed_time
       end
 
       def max_resource
