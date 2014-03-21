@@ -18,7 +18,7 @@ module Ninefold
   module Handler
     class ElapsedTime < ::Chef::Handler
 
-      attr_accessor :max_width
+      attr_accessor :max_width, :max_length
 
       def initialize(config={})
         @max_width = config[:max_width] || 30
